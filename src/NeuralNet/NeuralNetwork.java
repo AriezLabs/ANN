@@ -1,6 +1,7 @@
 package NeuralNet;
 
 import ActivationFunctions.ActivationFunction;
+import org.ejml.data.DMatrixRMaj;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,10 +9,6 @@ import java.util.function.DoubleSupplier;
 
 public class NeuralNetwork {
     private ArrayList<Layer> layers;
-
-    public NeuralNetwork(int[] layerSizes, ActivationFunction function, DoubleSupplier weightSupplier) {
-        this(layerSizes, Collections.nCopies(layerSizes.length, function).toArray(new ActivationFunction[0]), weightSupplier);
-    }
 
     /**
      * Create a new NN. Input size is size of first layer, output size is size of last layer
@@ -33,7 +30,21 @@ public class NeuralNetwork {
             layers.add(new Layer(layerSizes[i], layerSizes[i - 1], functions[i], weightSupplier));
     }
 
+    /** create new NN with same activation function for each layer */
+    public NeuralNetwork(int[] layerSizes, ActivationFunction function, DoubleSupplier weightSupplier) {
+        this(layerSizes, Collections.nCopies(layerSizes.length, function).toArray(new ActivationFunction[0]), weightSupplier);
+    }
+
     public Layer getLayer(int i) {
         return layers.get(i);
+    }
+
+    public DMatrixRMaj think(DMatrixRMaj input) {
+        if(input.getNumRows() != layers.get(0).getSize())
+            throw new IllegalArgumentException(String.format("expected input length %d, got %d", layers.get(0).getSize(), input.getNumRows()));
+        DMatrixRMaj result = input;
+        for(Layer l : layers)
+            result = l.think(result);
+        return result;
     }
 }
