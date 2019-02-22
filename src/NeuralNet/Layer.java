@@ -1,7 +1,7 @@
 package NeuralNet;
 
-import ActivationFunctions.ActivationFunction;
-import ActivationFunctions.Identity;
+import Functions.ActivationFunction;
+import Functions.Identity;
 import org.ejml.data.DMatrixRMaj;
 import org.ejml.dense.row.CommonOps_DDRM;
 

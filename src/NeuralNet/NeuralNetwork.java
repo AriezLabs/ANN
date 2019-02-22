@@ -1,6 +1,8 @@
 package NeuralNet;
 
-import ActivationFunctions.ActivationFunction;
+import Functions.ActivationFunction;
+import io.Example;
+import io.ExampleSupplier;
 import org.ejml.data.DMatrixRMaj;
 
 import java.util.ArrayList;
@@ -39,6 +41,14 @@ public class NeuralNetwork {
         return layers.get(i);
     }
 
+    public int getInputSize() {
+        return layers.get(0).getSize();
+    }
+
+    /**
+     * @param input Input vector. Should be somewhat normalized. Values way outside [-1, 1] will not work well (or at all)
+     * @return Result of passing input vector through all layers
+     */
     public DMatrixRMaj think(DMatrixRMaj input) {
         if(input.getNumRows() != layers.get(0).getSize())
             throw new IllegalArgumentException(String.format("expected input length %d, got %d", layers.get(0).getSize(), input.getNumRows()));
@@ -46,5 +56,17 @@ public class NeuralNetwork {
         for(Layer l : layers)
             result = l.think(result);
         return result;
+    }
+
+    public void train(Example[] examples) {
+
+    }
+
+    /** train this net without buffer */
+    public void train(ExampleSupplier supplier) {
+        Example ex;
+        while((ex = supplier.getNext()) != null) {
+
+        }
     }
 }

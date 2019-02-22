@@ -1,4 +1,4 @@
-package ActivationFunctions;
+package Functions;
 
 public class Sigmoid implements ActivationFunction {
     @Override

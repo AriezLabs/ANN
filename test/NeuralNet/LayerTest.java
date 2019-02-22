@@ -1,8 +1,7 @@
 package NeuralNet;
 
-import ActivationFunctions.Identity;
+import Functions.Identity;
 import org.ejml.data.DMatrixRMaj;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -1,4 +1,4 @@
-package ActivationFunctions;
+package Functions;
 
 public class Identity implements ActivationFunction {
     @Override
